@@ -38,308 +38,27 @@ public class MainPage {
 	 */
 	public static void main(String[] args) throws SQLException, IOException, AddressException, MessagingException {
 		// TODO Auto-generated method stub
-
-		//Declaration and initialisation
-		
-		CodeBank cb = new CodeBank();
-		ConnectionClass cc = new ConnectionClass();
-
 		/*
-		 * LOCAL CONNECTION TO DATABASE */
-	/*	String url = "jdbc:mysql://localhost:3307/cspmaidb";
+		 *  CONNECTION TO DATABASE */
+		//local connection to the database
+		String url = "jdbc:mysql://localhost:3307/cspmaidb";
 		String uname = "root";
 		String pw = "bolanle"; 
-		*/
 		
-		String directoryPath ="C:\\Users\\Omobola\\Desktop";
-		String directoryPath1 ="C:\\Users\\Omobola\\Desktop\\NEWXML\\";
-		/*
-		*
-		*/
-		
-		/*
-		 * REMOTE CONNECTION TO DATABASE 
-		 */
+		/* remote connection db
+		 * String url = "jdbc:mysql://127.0.0.1:33006/cspmaidb";
+		String uname = "username";
+		String pw = "password";*/
 		
 		/* DECLARATION AND INITIALISATION */
 		
-		
-		String url = "jdbc:mysql://127.0.0.1:33006/cspmaidb";
-		String uname = "cspmaiweb";
-		String pw = "yT9B3rfxli";
-
-		Map<String, String> linkMap = new HashMap<String, String>();
-		Map<String, String> getMap = new HashMap<String, String>();
-		Map<String, String> userMap = new HashMap<String, String>();
-		Map<String, String> selectMap = new HashMap<String, String>();
-		List<String> listName = new ArrayList<String>();
-		List<String> listLinks = new ArrayList<String>();
-		
-		String userLink = "http://www2.warwick.ac.uk/fac/sci/dcs/people";
+		CodeBank cb = new CodeBank();   //Class codebank
+		ConnectionClass cc = new ConnectionClass();  //Class connection class-takes care of all connection
 		
 		
-		/* CONNECT TO REMOTE DATABASE */
-		cc.connectToDatabase(url, uname, pw);
 		
-		/* INSERT USER NAME AND USER LINKS INTO DATABASE */
-		
-		/* DOWNLOAD LINKS FROM DCS PAGE */      linkMap = cb.downloadLink(userLink);       /*END OF DOWNLOAD*/
-		
-		/*CHECK IF DATA DOESNT ALREADY EXIST-----RETRIEVE ALL PRIMARY KEYS FROM TABLE*/
-		 selectMap=cc.select(url, uname, pw);
-		
-		 Iterator select = selectMap.entrySet().iterator();
-
-		 while (select.hasNext()) {
-			Map.Entry selectOut = (Map.Entry) select.next();
-			listName.add(selectOut.getKey().toString());
-			listLinks.add(selectOut.getValue().toString());
-	
-		 }   /*END OF RETRIEVE */
-			
-		/* ADD NEW LINKS TO TABLE USER_LINKS */
-		 
-		
-		 /*	Iterator iter = linkMap.entrySet().iterator();
-		 
-		 	while (iter.hasNext()) {
-			Map.Entry mEntry = (Map.Entry) iter.next();
-			if(listName.contains(mEntry.getKey().toString()))
-			{
-				System.out.println("Data already exists!!!");
-			}
-			else
-			{
-			 System.out.println(cc.UserLinks(url, uname, pw, mEntry.getKey().toString(), mEntry.getValue().toString()));
-			}
-		}  */   /*END OF ADDING NEW LINKS TO TABLE USER_LINKS */
-		
-		/*
-		  ADD EMAILS TO THE TABLE
-		 */
-		
-		/*for(int cnt = 0; cnt< listLinks.size(); cnt++)
-		{
-			String Email = cb.returnEmail(listLinks.get(cnt));
-			String editedEmail = Email.replaceAll("mailto:", "");
-			String Name =listName.get(cnt);
-			
-			String profile = cb.scrapeData(String.valueOf(listLinks.get(cnt)), "H3", "RESEARCH PROFILE"); 
-		    String editedProfile = profile.replaceAll("'", "");
-			
-		    String groups = cb.scrapeData(String.valueOf(listLinks.get(cnt)), "H3", "RESEARCH GROUPS");
-		    String publications = cb.scrapeData(String.valueOf(listLinks.get(cnt)), "H3", "SELECTED PUBLICATIONS");
-		    String editedPub = publications.replaceAll("'", "");
-		   
-		    /*ADD AND UPDATE USER TABLE 
-		  // System.out.println(Name+": "+editedPub);
-	    	  
-		    
-		    //System.out.println(Name+": "+groups);
-	    	
-			//System.out.println(Name+": "+editedProfile);
-	    	 //System.out.println(Name + " : "+editedEmail);
-			
-		  //cc.update(url, uname, pw, "Email", editedEmail, Name);
-		  //cc.update(url, uname, pw, "Research_Profile", editedProfile, Name);
-		   // cc.update(url, uname, pw, "Research_Groups", groups, Name);
-		    //cc.update(url, uname, pw, "Selected_Publications", editedPub, Name);
-			
-			
-		   
-		}*/
-		 
 	    
-	    /* GET JSON ADDRESS FROM PARTRIDGE AND SAVE INTO PATRIDGE TABLE */
-	    
-	    
-	    List<String> listPart = new ArrayList<String>();
-	    List<String> getPart = new ArrayList<String>();
-	    List<String> getTitle = new ArrayList<String>();
-	    List<String> addTitle = new ArrayList<String>();
-	    
-	    
-	   // getPart = cc.fromPatridge(url, uname, pw);
-	    
-	    
-	   // listPart = cb.createAddress();
-		
-		/*for(int j = 0 ; j< listPart.size(); j++)
-		{
-			if(getPart.contains(listPart.get(j).toString()))
-			{
-				//System.out.println(listPart.get(j).toString()+"exists!!!");
-				
-			}
-			else
-			{
-			String link = listPart.get(j).toString();
-			//System.out.println(cc.patridgeLinks(url, uname, pw, link));
-			}
-		}
-	     System.out.println(listPart.size()); */
-	    
-	    
-		/*END OF GET ADDRESS */
-		
-	    List<String> farnsLink = new ArrayList<String>();
-	   // farnsLink = cc.selectLink(url, uname, pw);
-	    
-	    System.out.println(farnsLink.size());
-		
-	  //  System.out.println(cb.saveXML(farnsLink, directoryPath));
-		
-		/* OPEN JSON FILE AND SCRAP NEEDED DATA */
-		
-		String jsonPath = "C:\\Users\\Omobola\\Desktop\\PAPERJSON\\";
-		List<String> newAddress = new ArrayList<String>();
-		List<String> listURL = new ArrayList<String>();
-		List<String> getURL = new ArrayList<String>();
-		List<String> getAbstract = new ArrayList<String>();
-		List<String> listAbstract = new ArrayList<String>();
-		List<String> getAuthor = new ArrayList<String>();
-		List<String> listAuthor = new ArrayList<String>();
-		List<String> getDoc = new ArrayList<String>();
-		List<String> listDoc = new ArrayList<String>();
-		List<String> urlFetch = new ArrayList<String>();
-		List<String> listURLFetch = new ArrayList<String>();
-		List<String> fetchTitle = new ArrayList<String>();
-		List<String> listTitleFetch = new ArrayList<String>();
-		
-		for(int json = 1; json<=55; json++)
-		{
-			newAddress.add(jsonPath+String.valueOf(json)+".json");
-		}
-		
-		
-	 /*int getCnt =0;
-		
-	  for(int k =0; k<newAddress.size(); k++)
-	    {
-		  String newFile =cb.convertFileToString(newAddress.get(k).toString());
-		  // System.out.println(newFile);
-		   
-	    	fetchTitle = cb.getTitle(newFile);
-		    getURL = cb.originalLink(newFile);
-		    getAbstract = cb.getAbstract(newFile);
-		    getAuthor = cb.getAuthor(newFile);
-			urlFetch = cb.getURL(newFile);  
-		    
-		    
-		    
-		    
-			  for(int tit = 0; tit< fetchTitle.size(); tit++)
-			   { 
-				   
-				   getCnt++;
-			   
-				   listTitleFetch.add(fetchTitle.get(tit).toString());
-				   
-				  System.out.println(getCnt+": "+fetchTitle.get(tit).toString());
-			   }
-			   
-		   
-		   for(int tit = 0; tit< getURL.size(); tit++)
-		   { 
-			   
-			   getCnt++;
-		   
-			   listURL.add(getURL.get(tit).toString());
-			   
-			  System.out.println(getCnt+": "+getURL.get(tit).toString());
-		   }
-		   
-		   for(int tit = 0; tit< getAbstract.size(); tit++)
-		   { 
-			   
-			   //getCnt++;
-		   
-			   listAbstract.add(getAbstract.get(tit).toString());
-			   
-			  System.out.println(getCnt+": "+getAbstract.get(tit).toString());
-		   }
-		   
-		   
-		   for(int tit = 0; tit< urlFetch.size(); tit++)
-		   { 
-			   
-			   getCnt++;
-		   
-			   listURLFetch.add(urlFetch.get(tit).toString());
-			   
-			  System.out.println(getCnt+": "+urlFetch.get(tit).toString());
-		   }
-		   
-		   
-	    }
-	  
-	  
-	  for(int cntr =0 ; cntr < 2729 ; cntr++)
-	  {
-		 // System.out.println(listURLFetch.get(cntr));
-		 // System.out.println(listTitleFetch.get(cntr));
-		   
-		  
-	  }
-	  */
-	  
-	  //cc.paper_information(url, uname, pw, listURLFetch);
-	 
-	  
-	  //cc.updatePaper(url, uname, pw, "Original_Url", listURL, );
-	 
-	 // cc.updatePaper(url, uname, pw, "Title", listTitleFetch,listURLFetch );
-	 // cc.updatePaper(url, uname, pw, "Abstract", listAbstract,listURLFetch );
-	  
-	/*	
-		List<String> listpaperLinks = new ArrayList<String>();
-		List<String> listXML = new ArrayList<String>();
-		String directoryPath = "C:\\Users\\Omobola\\Desktop\\PAPERXML\\";
-		String check = "http://farnsworth.papro.org.uk/file/";
-		List<String> listCheck = new ArrayList<String>();
-		List<String> getBody = new ArrayList<String>();
-		List<String> listbody = new ArrayList<String>();
-		
-		//String xmlfile = cb.convertFileToString("C:\\Users\\Omobola\\Desktop\\PAPERXML\\23.xml");
-		
-		
-		//String printxml = cb.extractData(xmlfile);
-		
-		//System.out.println(printxml);
-		
-		*/
-		
-	    // cc.updateDoc(url, uname, pw, directoryPath1);
-		
-		// Get the whole document for text Mining 
-		
-		
-		/*getMap = cc.selectAll(url, uname, pw);
-		Iterator iterAll = getMap.entrySet().iterator();
-		 
-	 	while (iterAll.hasNext()) {
-		Map.Entry mapAll = (Map.Entry) iterAll.next();
-		{
-		 //System.out.println(mapAll.getKey().toString()+" : "+mapAll.getValue().toString());
-
-			String paths = cb.createNewFile(mapAll.getKey().toString(),directoryPath);
-			System.out.println(paths);
-			
-			String fileName2 = mapAll.getKey().toString().replaceAll("http://farnsworth.papro.org.uk/file/", "");
-
-			
-			String writeFile =  cb.writetoFIle(mapAll.getValue().toString(),"C:\\Users\\Omobola\\Desktop\\DOCUMENTS\\"+fileName2+".txt");
-			System.out.println(writeFile);
-		
-		}
-		
-		
-		System.out.println(getMap.size());
-		
-		*/		
-		
-	//}  
-	
+	   
 		/* Updating Topic Model
 		List retrieveAddress = new ArrayList();
 		
@@ -426,7 +145,8 @@ public class MainPage {
 			
 		}*/
 		
-		
+		 cb.createFile("C:\\Users\\Downloads\\TEST");
+		   
 
 		// Updating User topic Model
 	/*
@@ -468,6 +188,7 @@ public class MainPage {
 		 TreeSet<String> inTop = new TreeSet<String>();
 		 Map<String, Double> jkd = new HashMap<String, Double>();
 		 Map<String, Double> jkd_1 = new HashMap<String, Double>();
+		 String output ="";
 		 
 		    
 		 ClassSimilar c1 = new ClassSimilar();
@@ -481,19 +202,19 @@ public class MainPage {
        * */
 		  
 	
-		    Map<String,String> userTopics = new HashMap();
+		/*    Map<String,String> userTopics = new HashMap();
 			
-			File users = new File("C:\\Users\\Omobola\\Desktop\\UserTopics1");
+			File users = new File("C:\\Users\\Omobola\\Desktop\\UserTopics");
 			File[] userFiles = users.listFiles();
 
 			for (File file : userFiles) {
 			    if (file.isFile()) {
-			    	userTopics.put(file.getName().toString(),"C:\\Users\\Omobola\\Desktop\\UserTopics1\\"+file.getName());
+			    	userTopics.put(file.getName().toString(),"C:\\Users\\Omobola\\Desktop\\UserTopics\\"+file.getName());
 			    }
 			}
 			
 			Iterator iterUser = userTopics.entrySet().iterator();
-            
+          
 			
 			while (iterUser.hasNext()) {
 				Map.Entry mEntry = (Map.Entry) iterUser.next();
@@ -501,15 +222,20 @@ public class MainPage {
 				//for(int x=0; x < userTopics.size(); x++)
 			
 		  // String s = c1.convertFileToString(userTopics.get(x).toString());
+				//	System.out.println(mEntry.getKey());
 					String s = c1.convertFileToString(mEntry.getValue().toString());
 					String[] words = s.split("\\s+");
 		   
+					output=output+mEntry.getKey().toString();
 		   /*
 		    * 
 		    * Create a set of words to represent user research profile
 		    * 
 		    *  */
-		
+		 String s = c1.convertFileToString("C\\Users\\Omobola\\Desktop\\freq.txt");
+		 String[] words = s.split("\\s+");
+		   
+	
 					for(int i = 0; i < words.length; i++)
 		    {
 		      set1.add(words[i].toString());
@@ -540,14 +266,14 @@ public class MainPage {
 			 * */
 			
 			
-			 for(int r = 0; r< topicAddy.size(); r++)
-				//for(int r = 0; r< 100 ; r++)
+			//(int r = 0; r< topicAddy.size(); r++)
+				for(int r = 0; r< 100 ; r++)
 							
 			{
 			
 		       // System.out.println(r);
 		        String s3 = c1.convertFileToString(topicAddy.get(r).toString());
-		       // System.out.println(r+" : "+s3);
+		       System.out.println(r+" : "+s3);
 		        String[] top = s3.split("\\s+");
 		       
 		        TreeSet<String> terms = new TreeSet<String>();
@@ -566,12 +292,12 @@ public class MainPage {
 		        
 		      unTop = c1.union(set1, topic);
 			    inTop = c1.intersection(set1, topic);
-			   // System.out.println("SET 1 : "+set1);
-			   // System.out.println("TOPIC : "+topic);
+			    System.out.println("SET 1 : "+set1);
+			    System.out.println("TOPIC : "+topic);
 			   
 			    indTop = (double) (Double.valueOf(inTop.size())/Double.valueOf(unTop.size()));
 				    
-			   // System.out.println("Jaccard coefficient : "+in.size()+"/"+un.size()+"="+ind);
+			    System.out.println("Jaccard coefficient : "+in.size()+"/"+un.size()+"="+ind);
 			    
 			   jkd_1.put(topicAddy.get(r).toString(), indTop);
 			    
@@ -580,29 +306,32 @@ public class MainPage {
 			 List result = new ArrayList();
 			 
 			 sorted = c1.entriesSortedByValues(jkd_1);
-			 String key = mEntry.getKey().toString().replace(".txt", "");
+		//	 String key = mEntry.getKey().toString().replace(".txt", "");
 			String allsol = "";	
 			 //System.out.println("DONE");
 			for(int c =0; c< 15; c++)
 			{
 				String sol = sorted.get(c).toString();
-				String sol1 = sol.replace("C:\\Users\\Omobola\\Desktop\\Topics\\", "");
-				//System.out.println(sol);
+				//String sol1 = sol.replace("C:\\Users\\Omobola\\Desktop\\Topics\\", mEntry.getKey().toString()+"-");
+				System.out.println(sol);
 				/*String replace = sol.substring(0,sol.lastIndexOf("\\"));
 			    String replace1 = sol.replace(replace, "");
 			    String replace2 = replace1.substring(0, replace1.indexOf("."));
 			    result.add(replace2);*/
-				allsol=allsol+sol1+"\n";
+			//	allsol=allsol+sol1+"\n";
 				
 				
 			}
+			 output = output+allsol;
 			//System.out.println(cb.writetoFIle(allsol,"C:\\Users\\Omobola\\Desktop\\top\\"+key+".txt"));
 		    
 			 // cc.updateRec(url, uname, pw, key, result);
 			
-		}   
-
-	}
+		//}   
+			 System.out.println(output);
+	
+}
+		// cb.writetoFIle(output, "C:\\Users\\Omobola\\Desktop\\Histogram\\output1.txt");
 		 
 		 mailClass mc = new mailClass();
 	
@@ -619,16 +348,16 @@ public class MainPage {
 				{
 					
 				  String name = mEntry.getKey().toString();
-				  String[] words = mEntry.getValue().toString().split("\\s+");
+			//	  String[] words = mEntry.getValue().toString().split("\\s+");
 	  
 				  	{
 						
 				  System.out.println(name);
 				  String email = cc.selectEmail(url, uname, pw, name);
 				  System.out.println(email);
-				  String feedback = "http://www.surveymonkey.com/s/QKZKRN9";
-				  
-				  for(int w=0; w<words.length; w++)
+				  String feedback = "http://www.surveymonkey.com/s/87YYNTV";
+				  mailBody="";
+				 /* for(int w=0; w<words.length; w++)
 				  {
 					  String rec = words[w].toString().replace(",", "");
 					  String rec1 = rec.replace("]", "");
@@ -650,11 +379,18 @@ public class MainPage {
 							}
 			         	}
 			         	}
+			         	
 				      System.out.println(mailBody);
-				      if(!email.equals(""))
+				    *//*  if(!email.equals(""))
 				      {
 				      String response = mc.sendEmail(email, "Dear "+name+"\n\nMy name is Bolanle Oladapo, an MSc. Student of Department of computer Science, University of warwick.\nI am testing my dissertation project titled - A content based recommendation system for scientific papers.\nBelow is a list of papers that might be relevant to your research profile,please have a look and give feedback in the link below\n"+feedback+"\n\nThank You.\n\n\n Regards\nBolanle Oladapo.\n"+mailBody);
 				      System.out.println(response);
+				      }*/
+				    
+				/*    if(!email.equals(""))
+				      {
+				      //String response = mc.sendEmail(email,"Dear "+name+"\n\nMy name is Bolanle Oladapo,MSc. Student of Department of computer Science, University of warwick.\nI sent you an email couple of weeks ago as regards evaluating my dissertation project, Content-based recommendation system for scientific papers.\nThank you for your prompt response, but to analyse my research work, I would need more help from you.\nCould you please go to the link below and let me know the papers that were bad(irrelevant), good(relevant) and average (averagely-relevant) match to your research interest.\n"+feedback+"\n\nThank You.\n\n\n Regards\nBolanle Oladapo.\n");
+				     // System.out.println(response);
 				      }
 				  }
 				}
@@ -666,7 +402,7 @@ public class MainPage {
 				System.out.println(e.getMessage());
 			}*/
 	}	
-}
+//}
 
 
 

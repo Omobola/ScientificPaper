@@ -275,9 +275,7 @@ public class ConnectionClass {
 	
 	public List<String> fromPatridge(String url, String uname, String pw)
 	{
-		// our SQL SELECT query. 
-	      // if you only need a few columns, specify them by name instead of using "*"
-	      String query = "SELECT * FROM patridge_links";
+		   String query = "SELECT * FROM patridge_links";
 	      List<String> linkMap = new ArrayList<String>();
 	         
 	      try{
@@ -285,17 +283,14 @@ public class ConnectionClass {
 	    	  // create the java statement
 	    	  Statement st = conn.createStatement();
 	      
-	      // execute the query, and get a java resultset
-	      ResultSet rs = st.executeQuery(query);
+	            ResultSet rs = st.executeQuery(query);
 	      
 	      // iterate through the java resultset
-	      while (rs.next())
-	      {
-	        String link = rs.getString("Links");
-	        
-	        linkMap.add(String.valueOf(link));
-	        
-	      }
+	         while (rs.next())
+	           {
+	              String link = rs.getString("Links");
+	              linkMap.add(String.valueOf(link));
+	            }
 	      st.close();
 	    }
 	    catch (Exception e)
@@ -606,7 +601,7 @@ public class ConnectionClass {
 	{
 		// our SQL SELECT query. 
 	      // if you only need a few columns, specify them by name instead of using "*"
-	      String query = "SELECT Name,Recommendation FROM clinical";
+	      String query = "SELECT Name,Recommendation FROM user_links";
 	      Map<String,String> linkMap = new HashMap<String,String>();
 	         
 	      try{
@@ -683,7 +678,7 @@ public class ConnectionClass {
 	{
 		// our SQL SELECT query. 
 	      // if you only need a few columns, specify them by name instead of using "*"
-	      String query = "SELECT Email FROM clinical WHERE Name = '"+key+"'";
+	      String query = "SELECT Email FROM user_links WHERE Name = '"+key+"'";
 	      String email="";
 	      
 	      try{
